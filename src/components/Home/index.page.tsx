@@ -10,7 +10,7 @@ export default function Home() {
   const [tasks, setTasks] = useState<Task[] | []>([]);
   const [selected, setSelected] = useState<Task>();
 
-  function selecionaTarefa(selectedTask: Task) {
+  function selectTask(selectedTask: Task) {
     setSelected(selectedTask);
     setTasks((pastTasks) =>
       pastTasks.map((tasks) => ({
@@ -20,7 +20,7 @@ export default function Home() {
     );
   }
 
-  function finalizarTarefa() {
+  function finishTask() {
     if (selected) {
       setSelected(undefined);
       setTasks((pastTasks) =>
@@ -53,9 +53,9 @@ export default function Home() {
       <S.Container>
         <S.TasksWrapper>
           <Form setTasks={setTasks} />
-          <List tasks={tasks} selectTask={selecionaTarefa} />
+          <List tasks={tasks} selectTask={selectTask} />
         </S.TasksWrapper>
-        <Stopwatch selected={selected} finishTask={finalizarTarefa} />
+        <Stopwatch selected={selected} finishTask={finishTask} />
       </S.Container>
     </>
   );
