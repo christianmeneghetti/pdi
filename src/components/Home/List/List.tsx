@@ -1,14 +1,16 @@
 import Item from "./Item";
-import { ListProps } from "./List.types";
 import * as S from "./List.styles";
+import { useTaskBoard } from "@/hooks/useTaskBoard/useTaskBoard";
 
-export default function List({ tasks, selectTask }: ListProps) {
+export default function List() {
+  const tasks = useTaskBoard((state) => state.tasks);
+
   return (
     <S.ListContainer>
       <S.ListTitle>Estudos do dia</S.ListTitle>
       <S.ListItems>
         {tasks.map((item) => (
-          <Item selectTask={selectTask} key={item.id} {...item} />
+          <Item key={item.id} {...item} />
         ))}
       </S.ListItems>
     </S.ListContainer>

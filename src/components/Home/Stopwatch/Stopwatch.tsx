@@ -1,11 +1,16 @@
 import Button from "../Button/Button";
 import { useEffect, useState } from "react";
 import * as S from "./Stopwatch.styles";
-import { StopwatchProps } from "./Stopwatch.types";
 import { timeToSeconds } from "@/utils/timeToSeconds";
 import Clock from "./Clock";
+import { useTaskBoard } from "@/hooks/useTaskBoard/useTaskBoard";
 
-export default function Stopwatch({ selected, finishTask }: StopwatchProps) {
+export default function Stopwatch() {
+  const { selected, finishTask } = useTaskBoard((state) => ({
+    selected: state.selected,
+    finishTask: state.finishTask,
+  }));
+
   const [timer, setTimer] = useState<number>();
 
   useEffect(() => {

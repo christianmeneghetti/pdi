@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Button from "../Button";
 import { v4 as uuidv4 } from "uuid";
-import { FormProps } from "./Form.types";
 import * as S from "./Form.styles";
+import { useTaskBoard } from "@/hooks/useTaskBoard/useTaskBoard";
 
-export default function Form({ setTasks }: FormProps) {
+export default function Form() {
+  const setTasks = useTaskBoard((state) => state.setTasks);
+
   const [task, setTask] = useState("");
   const [timer, setTimer] = useState("00:00");
 
   function addTask(event: React.FormEvent) {
     event.preventDefault();
-    setTasks((oldTasks) => [
-      ...oldTasks,
-      { task, timer, selected: false, completed: false, id: uuidv4() },
-    ]);
+    setTasks({ task, timer, selected: false, completed: false, id: uuidv4() });
     setTask("");
     setTimer("00:00");
   }
@@ -25,7 +24,7 @@ export default function Form({ setTasks }: FormProps) {
           <S.TaskLabel htmlFor="task">Adicione um novo estudo</S.TaskLabel>
           <S.TaskInput
             type="text"
-            name="task"
+            className="task"
             id="task"
             value={task}
             onChange={(event) => setTask(event.target.value)}
@@ -38,7 +37,7 @@ export default function Form({ setTasks }: FormProps) {
           <S.TaskInput
             type="time"
             step="1"
-            name="timer"
+            className="timer"
             value={timer}
             onChange={(event) => setTimer(event.target.value)}
             id="timer"
